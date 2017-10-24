@@ -60,7 +60,6 @@ html, body {
   position: relative;
 }
 
-
 .cap {
   padding:2px;
   position:relative;
@@ -72,10 +71,7 @@ html, body {
 
 .filter {
   text-align: center;
-  /*overflow-x: scroll;*/
 }
-
-
 
 @media screen and (max-width: 435px) {
   .chart-view {

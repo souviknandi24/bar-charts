@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class Bar extends React.Component {
   render(){
-
     let ulim = this.props.height + this.props.martop;
     let height = ulim ? (this.props.height/ulim)*300 : 0;
     let marginTop = (400 - height);

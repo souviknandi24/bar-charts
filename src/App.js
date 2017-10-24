@@ -75,6 +75,7 @@ export default class App extends React.Component {
   calculate() {
     let datas = this.state.datas;
     let arr = this.state.locage;
+    
     for(var i=0; i<6; i++) {
       for(var j=0; j<6; j++){
         arr[i][j] = 0;
@@ -114,6 +115,7 @@ export default class App extends React.Component {
     let datas = this.state.datas;
     datas.splice(i,1);
     let selectedData;
+    
     if(datas.length > 0)
     {
       selectedData = datas[0];
@@ -187,66 +189,64 @@ export default class App extends React.Component {
   render(){
     return(
       <div>
-        <div>
-          <div className="well text-center">
-            <h1>Bar Charts Flow</h1>
+        <div className="well text-center">
+          <h1>Bar Charts Flow</h1>
+        </div>
+
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <Add onAdd={this.handleAdd.bind(this)}/>
+            </div>
+            <div className="col-md-6">
+              <DataList datas={this.state.datas} locage={this.state.locage} onDataClick={this.handleDataClick.bind(this)} onDataRemove={this.handleDataRemove.bind(this)}/>
+            </div>
           </div>
 
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
-                <Add onAdd={this.handleAdd.bind(this)}/>
-              </div>
-              <div className="col-md-6">
-                <DataList datas={this.state.datas} locage={this.state.locage} onDataClick={this.handleDataClick.bind(this)} onDataRemove={this.handleDataRemove.bind(this)}/>
-              </div>
-            </div>
-
-            <div>
-              <div className="filter">
-                <h3>Filter by:</h3>
-                <form className="form-horizontal">
-                  <div className="form-group">
-                    <div className="col-sm-2 col-sm-offset-4">
-                      <input type="radio" name="filter" value="0" ref="filter" checked={this.state.filt==="0"}  onChange={this.handleClick.bind(this)}/>Age Range
-                      <select name="age" ref="age" className="form-control" onChange={this.handleChange1.bind(this)}>
-                        <option value="0">0 - 10</option>
-                        <option value="1">11 - 20</option>
-                        <option value="2">21 - 30</option>
-                        <option value="3">31 - 40</option>
-                        <option value="4">41 - 50</option>
-                        <option value="5">50+</option>
-                      </select>
-                    </div>
-                    <div className="col-sm-2">
-                      <input type="radio" name="filter" value="1" ref="filter" checked={this.state.filt==="1"} onChange={this.handleClick.bind(this)}/>Location
-                      <select name="loc" ref="loc" className="form-control" onChange={this.handleChange2.bind(this)}>
-                        <option value="0">India</option>
-                        <option value="1">China</option>
-                        <option value="2">Japan</option>
-                        <option value="3">USA</option>
-                        <option value="4">Russia</option>
-                        <option value="5">Others</option>
-                      </select>
-                    </div>
+          <div>
+            <div className="filter">
+              <h3>Filter by:</h3>
+              <form className="form-horizontal">
+                <div className="form-group">
+                  <div className="col-sm-2 col-sm-offset-4">
+                    <input type="radio" name="filter" value="0" ref="filter" checked={this.state.filt==="0"}  onChange={this.handleClick.bind(this)}/>Age Range
+                    <select name="age" ref="age" className="form-control" onChange={this.handleChange1.bind(this)}>
+                      <option value="0">0 - 10</option>
+                      <option value="1">11 - 20</option>
+                      <option value="2">21 - 30</option>
+                      <option value="3">31 - 40</option>
+                      <option value="4">41 - 50</option>
+                      <option value="5">50+</option>
+                    </select>
                   </div>
-                </form>
+                  <div className="col-sm-2">
+                    <input type="radio" name="filter" value="1" ref="filter" checked={this.state.filt==="1"} onChange={this.handleClick.bind(this)}/>Location
+                    <select name="loc" ref="loc" className="form-control" onChange={this.handleChange2.bind(this)}>
+                      <option value="0">India</option>
+                      <option value="1">China</option>
+                      <option value="2">Japan</option>
+                      <option value="3">USA</option>
+                      <option value="4">Russia</option>
+                      <option value="5">Others</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <br/>
+            <div className="chart-view">
+              <div className="canvas">
+                {this.state.arr.map((dataItem,i) => 
+                  <Bar key={i} height={dataItem} martop={this.state.max - dataItem} data={dataItem} width={"50px"}/>
+                  )}
               </div>
-              <br/>
-              <div className="chart-view">
-                <div className="canvas">
-                  {this.state.arr.map((dataItem,i) => 
-                    <Bar key={i} height={dataItem} martop={this.state.max - dataItem} data={dataItem} width={"50px"}/>
-                    )}
-                </div>
-                <div className="captions">
-                  {this.state.cap.map((dataItem,i) => 
-                    <Cap key={i} data={dataItem} width={"50px"}/>
-                    )}
-                </div>
-                <div className="captions">
-                  <h4>{this.state.str}</h4>
-                </div>
+              <div className="captions">
+                {this.state.cap.map((dataItem,i) => 
+                  <Cap key={i} data={dataItem} width={"50px"}/>
+                  )}
+              </div>
+              <div className="captions">
+                <h4>{this.state.str}</h4>
               </div>
             </div>
           </div>
