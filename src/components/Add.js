@@ -1,13 +1,24 @@
 import React from 'react';
 
 export default class Add extends React.Component {
+  constructor() {
+    super();
+    this.state = {value1: '', value2: 0, value3: 0};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
   
+
   add(event){
     event.preventDefault();
-
-    let name = this.refs.cn.value;
-    let age = this.refs.age.value;
-    let loc = this.refs.loc.value;
+    console.log(event.target.value);
+    let name = this.state.value1;
+    let age = this.state.value2;
+    let loc = this.state.value3;
 
     if(name.length > 2) {
       this.props.onAdd(name, age, loc);
@@ -17,9 +28,9 @@ export default class Add extends React.Component {
       alert("Name must have atleast 3 characters!!!");
     }
 
-    this.refs.cn.value = '';
-    this.refs.age.value = 0;
-    this.refs.loc.value = 0; 
+    this.setState({value1: ''});
+    this.setState({value2: 0});
+    this.setState({value3: 0});
   }
 
   render(){
@@ -33,13 +44,13 @@ export default class Add extends React.Component {
             <div className="form-group">
               <label className="control-label col-sm-3">Name:</label>
               <div className="col-sm-8">
-                <input type="text" id="name" name="name" className="form-control" placeholder="Name" ref="cn"/>
+                <input type="text" id="name" name="value1" className="form-control" placeholder="Name" value={this.state.value1} onChange={this.handleChange}/>
               </div>
             </div>
             <div className="form-group">
               <label className="control-label col-sm-3">Age Range:</label>
               <div className="col-sm-8">
-                <select name="age" ref="age" className="form-control">
+                <select name="value2" className="form-control" value={this.state.value2} onChange={this.handleChange}>
                   <option value="0">0 - 10</option>
                   <option value="1">11 - 20</option>
                   <option value="2">21 - 30</option>
@@ -52,7 +63,7 @@ export default class Add extends React.Component {
             <div className="form-group">
               <label className="control-label col-sm-3">Location:</label>
               <div className="col-sm-8">
-                <select name="loc" ref="loc" className="form-control">
+                <select name="value3" className="form-control" value={this.state.value3} onChange={this.handleChange}>
                   <option value="0">India</option>
                   <option value="1">China</option>
                   <option value="2">Japan</option>
